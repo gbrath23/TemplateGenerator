@@ -56,7 +56,7 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
 
   // Read and process the CSV file
   fs.createReadStream(csvFilePath)
-    .pipe(csv({ separator: ";" }))
+    .pipe(csv({ separator: "," }))
     .on("data", (row) => {
       const normalizedRow = {};
       Object.keys(row).forEach((key) => {
@@ -179,7 +179,7 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
 };
 
 // Usage
-const csvFilePath = '/Users/gustavbrath/Downloads/CSV for script 1.csv';
+const csvFilePath = '/Users/gustavbrath/Downloads/CSV for Template.csv';
 const outputCtgoPath = "/path/to/output.ctgo";
 const outputJsonPath = "/path/to/output.json";
 processCsvAndGenerateJson(csvFilePath, outputCtgoPath, outputJsonPath);

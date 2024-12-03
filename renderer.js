@@ -8,6 +8,41 @@ const selectCtgoPathButton = document.getElementById('select-ctgo-path');
 const selectJsonPathButton = document.getElementById('select-json-path');
 const ctgoPathElement = document.getElementById('ctgo-path');
 const jsonPathElement = document.getElementById('json-path');
+const dragDropArea = document.getElementById('drag-drop-area');
+const fileDraggedPath = document.getElementById('file-dragged-path');
+
+// Highlight the drag-and-drop area when a file is dragged over it
+dragDropArea.addEventListener('dragover', (event) => {
+  event.preventDefault();
+  dragDropArea.style.borderColor = 'blue';
+});
+
+// Reset the style when the file leaves the drag-and-drop area
+dragDropArea.addEventListener('dragleave', () => {
+  dragDropArea.style.borderColor = '#ccc';
+});
+
+// Handle the file drop event
+dragDropArea.addEventListener('drop', (event) => {
+  event.preventDefault();
+  dragDropArea.style.borderColor = '#ccc';
+
+  // Check if a file was dropped
+  if (event.dataTransfer.files.length > 0) {
+    const file = event.dataTransfer.files[0];
+
+    // Check if the file has a .csv extension
+    if (file.name.endsWith('.csv')) {
+      selectedFilePath = file.path;
+      filePathElement.textContent = `Selected File: ${selectedFilePath}`;
+      fileDraggedPath.textContent = `File dragged and selected: ${selectedFilePath}`;
+      processFileButton.disabled = false;
+    } else {
+      fileDraggedPath.textContent = 'Error: Please drop a valid CSV file.';
+      fileDraggedPath.style.color = 'red';
+    }
+  }
+});
 
 let selectedFilePath = null;
 let selectedCtgoPath = null;

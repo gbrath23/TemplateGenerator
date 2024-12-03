@@ -1,22 +1,19 @@
-# TempWithUI
+# TemplateGenerator
 
-**TempWithUI** is an Electron-based desktop application for generating hierarchical JSON and CTGO files from a CSV input. The app provides an easy-to-use interface to select input/output files and paths, while also displaying progress and status updates.
+**TemplateGenerator** is an Electron-based desktop application for generating hierarchical JSON and CTGO files from a CSV input. The app provides an easy-to-use interface to select input/output files and paths, while also displaying progress and status updates.
 
 ---
 
 ## Features
 
-- User-friendly graphical interface.
 - Dynamically generate hierarchical JSON and CTGO files from CSV input.
 - Select input/output paths for CSV, JSON, and CTGO files.
-- Progress feedback during file generation.
-- Themed UI with Light/Dark mode toggle.
 
 ---
 
 ## Requirements
 
-Before you can use **TempWithUI**, ensure you have the following installed:
+Before you can use **TemplateGenerator**, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (version 16 or later)
 - npm (comes bundled with Node.js)
@@ -28,8 +25,8 @@ Before you can use **TempWithUI**, ensure you have the following installed:
 Follow these steps to get the application running:
 
 ### 1. Clone the Repository
-git clone https://github.com/yourusername/tempwithui.git
-cd tempwithuiz
+git clone https://github.com/yourusername/TemplateGenerator.git
+cd TemplateGenerator
 
 ### 2. Install Nodes
 npm i

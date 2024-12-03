@@ -25,14 +25,21 @@ ipcMain.handle('select-csv', async () => {
   return result.filePaths[0]; // Return selected file path
 });
 
-ipcMain.on('process-file', (event, { csvFilePath }) => {
-  const desktopPath = path.join(require('os').homedir(), 'Desktop');
-  const outputCtgoPath = path.join(desktopPath, 'output.ctgo');
-  const outputJsonPath = path.join(desktopPath, 'output.json');
-
-  processCsvAndGenerateJson(csvFilePath, outputCtgoPath, outputJsonPath);
-
-  event.reply('processing-complete', {
-    message: `Files saved to Desktop: \nTemplate.ctgo\nTemplate.json`,
+ipcMain.handle('select-output', async (_, { defaultFileName, extension }) => {
+  const result = await dialog.showSaveDialog({
+    defaultPath: path.join(require('os').homedir(), 'Desktop', defaultFileName),
+    filters: [{ name: `${extension.toUpperCase()} Files`, extensions: [extension] }],
   });
+  return result.filePath; // Return selected file path
+});
+
+ipcMain.on('process-file', async (event, { csvFilePath, ctgoPath, jsonPath }) => {
+  try {
+    processCsvAndGenerateJson(csvFilePath, ctgoPath, jsonPath);
+    event.reply('processing-complete', {
+      message: `Files saved:\n${ctgoPath}\n${jsonPath}`,
+    });
+  } catch (error) {
+    event.reply('processing-error', { message: `Error: ${error.message}` });
+  }
 });

@@ -3,14 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template Processor</title>
+  <title>Template Generator</title>
 </head>
 <body>
-  <h1>CSV to Template Converter</h1>
+  <h1>Template Generator</h1>
   <button id="select-file">Select CSV File</button>
-  <p id="file-path"></p>
-  <button id="process-file" disabled>Process File</button>
+  <p id="file-path">No file selected</p>
+
+  <button id="select-ctgo-path">Select CTGO Output Path</button>
+  <p id="ctgo-path">No file selected</p>
+
+  <button id="select-json-path">Select JSON Output Path</button>
+  <p id="json-path">No file selected</p>
+
+  <button id="process-file" disabled>Generate Templates</button>
   <p id="status"></p>
+
   <script src="renderer.js"></script>
 </body>
 </html>

@@ -42,3 +42,5 @@ Add the app to the applications folder.
 
 ### 5. Run the app
 The app should now be working.
+
+"," is the defualt when downloading as csv from google sheets.

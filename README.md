@@ -26,6 +26,7 @@ Follow these steps to get the application running:
 
 ### 1. Clone the Repository
 git clone https://github.com/yourusername/TemplateGenerator.git
+
 cd TemplateGenerator
 
 ### 2. Install Nodes
@@ -36,6 +37,7 @@ npm run build
 
 ### 4. Open the app 
 Go to where the repo is loaclly on your mac go to dist and run the .dmg file.
+
 Add the app to the applications folder.
 
 ### 5. Run the app

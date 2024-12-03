@@ -25,7 +25,7 @@ Before you can use **TemplateGenerator**, ensure you have the following installe
 Follow these steps to get the application running:
 
 ### 1. Clone the Repository
-git clone https://github.com/yourusername/TemplateGenerator.git
+git clone https://github.com/gbrath23/TemplateGenerator.git
 
 cd TemplateGenerator
 

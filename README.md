@@ -29,9 +29,7 @@ Follow these steps to get the application running:
 
 ### 1. Clone the Repository
 git clone https://github.com/yourusername/tempwithui.git
-cd tempwithui
-
----
+cd tempwithuiz
 
 ### 2. Install Nodes
 npm i

@@ -43,7 +43,7 @@ Add the app to the applications folder.
 ### 5. Set up allowance 
 If the command below is not run macos will tell you the app is damaged due to the lack of valid dev id:
 
-xattr -d com.apple.quarantine <path to app>
+xattr -d com.apple.quarantine /path/to/CaptegoTemplateGenerator.app
 
 ### 6. Run the app
 The app should now be working.

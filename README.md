@@ -40,7 +40,12 @@ Go to where the repo is loaclly on your mac go to dist and run the .dmg file.
 
 Add the app to the applications folder.
 
-### 5. Run the app
+### 5. Set up allowance 
+If the command below is not run macos will tell you the app is damaged due to the lack of valid dev id:
+
+xattr -d com.apple.quarantine <path to app>
+
+### 6. Run the app
 The app should now be working.
 
 "," is the defualt when downloading as csv from google sheets.

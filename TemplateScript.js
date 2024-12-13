@@ -16,7 +16,7 @@ const COLUMN_NAMES = {
   noteContent: "Note",
 };
 
-const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) => {
+const processCsvAndGenerateFiles = (csvFilePath, outputCtgoPath, outputJsonPath, generateJson) => {
   const jsonData = {
     templateDocument: {
       actors: [],
@@ -48,10 +48,9 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
   };
 
   const labelsSet = new Set();
-  const tagsMap = {}; // Map to store tags using hierarchical keys
-  const labelMap = {}; // Map to link status titles to label IDs
+  const tagsMap = {};
+  const labelMap = {};
 
-  // Generate a unique key for a tag based on its hierarchy
   const generateTagKey = (root, sub1, sub2) => `${root}||${sub1 || ""}||${sub2 || ""}`;
 
   // Read and process the CSV file
@@ -70,11 +69,10 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
       const subTag2Title = normalizedRow[COLUMN_NAMES.subTag2]?.trim() || null;
       const noteContent = normalizedRow[COLUMN_NAMES.noteContent]?.trim() || null;
 
-      // Add unique labels
       if (status && color && !labelsSet.has(status)) {
         labelsSet.add(status);
         const labelId = generateRandomId();
-        labelMap[status] = labelId; // Store label ID for linking notes
+        labelMap[status] = labelId;
         jsonData.templateDocument.labelGroups[0].labels.push({
           title: status,
           color: color,
@@ -82,7 +80,6 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
         });
       }
 
-      // Generate hierarchical tags
       let currentTag = tagsMap["Template"];
       const rootTagKey = generateTagKey(rootTagTitle);
       if (rootTagTitle && !tagsMap[rootTagKey]) {
@@ -139,7 +136,6 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
         }
       }
 
-      // Add notes if content exists
       if (noteContent && currentTag && status) {
         const noteId = generateRandomId();
         const labelId = labelMap[status];
@@ -152,7 +148,6 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
           updated: Date.now(),
         });
 
-        // Update noteCounts for the tag
         if (!currentTag.noteCounts[labelId]) {
           currentTag.noteCounts[labelId] = 0;
         }
@@ -160,28 +155,23 @@ const processCsvAndGenerateJson = (csvFilePath, outputCtgoPath, outputJsonPath) 
       }
     })
     .on("end", () => {
-      const jsonString = JSON.stringify(jsonData, null, 2);
-      const base64Data = Buffer.from(jsonString).toString("base64");
-
-      fs.writeFile(outputJsonPath, jsonString, (err) => {
-        if (err) console.error("Error writing JSON file:", err);
-        else console.log("JSON file saved to", outputJsonPath);
-      });
+      const base64Data = Buffer.from(JSON.stringify(jsonData)).toString("base64");
 
       fs.writeFile(outputCtgoPath, base64Data, (err) => {
         if (err) console.error("Error writing .ctgo file:", err);
         else console.log(".ctgo file saved to", outputCtgoPath);
       });
+
+      if (generateJson) {
+        fs.writeFile(outputJsonPath, JSON.stringify(jsonData, null, 2), (err) => {
+          if (err) console.error("Error writing JSON file:", err);
+          else console.log("JSON file saved to", outputJsonPath);
+        });
+      }
     })
     .on("error", (err) => {
       console.error("Error reading CSV file:", err);
     });
 };
 
-// Usage
-const csvFilePath = '/Users/gustavbrath/Downloads/CSV for Template.csv';
-const outputCtgoPath = "/path/to/output.ctgo";
-const outputJsonPath = "/path/to/output.json";
-processCsvAndGenerateJson(csvFilePath, outputCtgoPath, outputJsonPath);
-
-module.exports = { processCsvAndGenerateJson };
+module.exports = { processCsvAndGenerateFiles };

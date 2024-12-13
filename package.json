@@ -4,7 +4,7 @@
     "main": "main.js",
     "build": {
       "appId": "com.example.myapp",
-      "productName": "Captego Template Generator",
+      "productName": "CaptegoTemplateGenerator",
       "mac": {
         "icon": "assets/icon.icns"
       },
